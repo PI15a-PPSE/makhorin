@@ -10,7 +10,6 @@ function Square(props) {
     </button>
   );
 }
-
   
 class Board extends React.Component {
   constructor(props) {
@@ -43,7 +42,7 @@ class Board extends React.Component {
   
     render() {
       const winner = calcWinner(this.state.squares);
-      
+
       let status;
       if(winner) {
         status = 'Winner: ' + winner;
@@ -96,6 +95,8 @@ class Game extends React.Component {
     document.getElementById('root')
   );
 
+  // ========================================
+
   function calcWinner(squares) {
     const lines = [
       [0, 1, 2],
@@ -114,5 +115,6 @@ class Game extends React.Component {
         return squares[a];
       }
     }
+
     return null;
   }
