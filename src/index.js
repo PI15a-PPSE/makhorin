@@ -20,7 +20,7 @@ class Square extends React.Component {
   
 class Board extends React.Component {
     renderSquare(i) {
-      return <Square />;
+      return <Square value={i}/>;
     }
   
     render() {
@@ -57,7 +57,7 @@ class Game extends React.Component {
             <Board />
         </div>
           <div className="game-info">
-            <div>{/* status */}</div>
+            <div>{<b>test-msg</b>}</div>
             <ol>{/* TODO */}</ol>
           </div>
         </div>
