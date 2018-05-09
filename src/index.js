@@ -10,12 +10,23 @@ function Square(props) {
     </button>
   );
 }
-  
+
+
+class resetButton extends React.Component {
+  render() {
+    return (
+      <button onClick={() => Board.reset()}>"Go to Game Start"</button>
+    );
+  }
+}
+
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
+      beginningState: Array(9).fill(null),
       xIsNext: true,
     }
   }
@@ -26,8 +37,8 @@ class Board extends React.Component {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState(
-      {squares: squares,
+    this.setState({
+        squares: squares,
         xIsNext: !this.state.xIsNext,
       });
   }
@@ -40,6 +51,12 @@ class Board extends React.Component {
       );
     }
   
+    reset() {
+      this.setState({
+          squares: this.state.beginningState,
+          xIsNext: true,
+      });
+    }
     render() {
       const winner = calcWinner(this.state.squares);
 
@@ -67,6 +84,8 @@ class Board extends React.Component {
             {this.renderSquare(7)}
             {this.renderSquare(8)}
           </div>
+          <br/>
+          <button onClick={() => this.reset()}>Go to Game Start</button>
         </div>
       );
     }
@@ -80,8 +99,6 @@ class Game extends React.Component {
             <Board />
         </div>
           <div className="game-info">
-            <div>{<b>test-msg</b>}</div>
-            <ol>{/* TODO */}</ol>
           </div>
         </div>
       );
@@ -107,6 +124,7 @@ class Game extends React.Component {
       [2, 5, 6],
       [0, 4, 8],
       [2, 4, 6],
+      [2, 5, 8],
     ];
 
     for (let i = 0; i < lines.length; i++) {
