@@ -2,7 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-
+/**
+* Square
+*
+* Class-object that handles board squares and clicks on them
+*
+*
+* @author       Stepan Makhorin
+* @version      1.0
+* @copyright    GNU Public License
+*/
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -12,16 +21,24 @@ function Square(props) {
 }
 
 
-class resetButton extends React.Component {
-  render() {
-    return (
-      <button onClick={() => Board.reset()}>"Go to Game Start"</button>
-    );
-  }
-}
-
-
+/**
+ * Board
+ * 
+ * Class that handles nearly entire logic of the game
+ * 
+ * 
+ * @author       Stepan Makhorin
+ * @version      1.0
+ * @copyright    GNU Public License
+ */
 class Board extends React.Component {
+
+  /**
+   * Class constructor
+   * 
+   * 
+   * @param {*} props 
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +48,14 @@ class Board extends React.Component {
     }
   }
 
+  /**
+   * The click-handler
+   * 
+   * slices array into a new one to ensure that our main board is immutable
+   * 
+   * 
+   * @param {The number of clicked square} i 
+   */
   handleClick(i){
     const squares = this.state.squares.slice();
     if(calcWinner(squares) || squares[i]) {
@@ -43,6 +68,14 @@ class Board extends React.Component {
       });
   }
 
+  /**
+   * The square-renderer
+   * 
+   * Renders the square object and parses the click method onto it
+   * 
+   * 
+   * @param {The number square to bee clicked} i 
+   */
     renderSquare(i) {
       return (<Square 
       value={this.state.squares[i]}
@@ -51,12 +84,23 @@ class Board extends React.Component {
       );
     }
   
+    /**
+     * Resetter
+     * 
+     * resets the entire game instead of reloading the page
+     */
     reset() {
       this.setState({
           squares: this.state.beginningState,
           xIsNext: true,
       });
     }
+
+    /**
+     * Render
+     * 
+     * The main React method that gets executed
+     */
     render() {
       const winner = calcWinner(this.state.squares);
 
@@ -91,6 +135,16 @@ class Board extends React.Component {
     }
   }
 
+/**
+ * Game
+ * 
+ * Class that reders all html tags and puts classes into them
+ * 
+ * 
+ * @author       Stepan Makhorin
+ * @version      1.0
+ * @copyright    GNU Public License
+ */
 class Game extends React.Component {
     render() {
       return (
@@ -106,7 +160,9 @@ class Game extends React.Component {
   }
   
   // ========================================
-  
+  /**
+   * ReactDOM method that handles the fake DOM it creates
+   */
   ReactDOM.render(
     <Game />,
     document.getElementById('root')
@@ -114,6 +170,14 @@ class Game extends React.Component {
 
   // ========================================
 
+  /**
+   * calcWinner
+   * 
+   * Goes through a preset line combinations to determine if the game is over
+   * 
+   * 
+   * @param {Gameboard to parse} squares 
+   */
   function calcWinner(squares) {
     const lines = [
       [0, 1, 2],
