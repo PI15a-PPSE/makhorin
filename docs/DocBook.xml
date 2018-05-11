@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glossary PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<glossary>
+  <glossdiv>
+    <title>Программный продукт Tic-Tac-Toe</title>
+
+    <glossentry>
+      <glossterm>1. Описание продукта</glossterm>
+
+      <glossdef>
+        <para>Программный продукт <emphasis role="bold">Tic-Tac-Toe</emphasis>
+        был разработан для развлечения. Игра содержит в себе поле 3*3 и
+        предназначена для двух игроков.</para>
+      </glossdef>
+    </glossentry>
+
+    <glossentry>
+      <glossterm>2. Первый запуск</glossterm>
+
+      <glossdef>
+        <para>При первом запуске игры пользователю предоставлено поле и по
+        правилам игры первый игрок играет за крестики, у него доступно 9
+        клеток для первого хода и первый клик, как и последующие
+        обрабатывается следующей функиецй:</para>
+
+        <programlisting>  handleClick(i){
+    const squares = this.state.squares.slice();
+    if(calcWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+        squares: squares,
+        xIsNext: !this.state.xIsNext,
+      });
+  }
+</programlisting>
+
+        <address>При нажатии кнопки "Go to Game Start" игра вернётся в первоначальное состояние с пустым полем, функция предоставлена ниже:</address>
+
+        <programlisting>    reset() {
+      this.setState({
+          squares: this.state.beginningState,
+          xIsNext: true,
+      });
+    }</programlisting>
+
+        <literallayout>Каждый ход производится проверка по нахождению победителя и при удачном поиске выводится сообщение "Winner :", а игра не может быть продолжена.
+В противном случае сообщения о ничье не будет, при заполнении 9 клеток игра не сможет более продолжаться, код проверки победителя предоставлен ниже:</literallayout>
+
+        <programlisting>  function calcWinner(squares) {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 6],
+      [0, 4, 8],
+      [2, 4, 6],
+      [2, 5, 8],
+    ];
+
+    for (let i = 0; i &lt; lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if(squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+        return squares[a];
+      }
+    }
+
+    return null;
+  }</programlisting>
+
+        <para>Таким образом, было рассмотрено 3 варианта развития событий, с
+        приведенным кодом.</para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+</glossary>
