@@ -55,7 +55,7 @@ class Board extends React.Component {
      * slices array into a new one to ensure that our main board is immutable
      * 
      * 
-     * @param {The number of clicked square} i 
+     * @param {Integer} i - The number of clicked squares
      */
     handleClick(i){
         const squares = this.state.squares.slice();
@@ -75,7 +75,7 @@ class Board extends React.Component {
      * Renders the square object and parses the click method onto it
      * 
      * 
-     * @param {The number square to bee clicked} i 
+     * @param {Integer} i - The number square to be clicked
      */
     renderSquare(i) {
         return (
@@ -161,10 +161,10 @@ class Game extends React.Component {
     }
 }
   
-  // ========================================
-  /**
-   * ReactDOM method that handles the fake DOM it creates
-   */
+// ========================================
+/**
+* ReactDOM method that handles the fake DOM it creates
+*/
 ReactDOM.render(
     <Game />,
     document.getElementById('root')
@@ -178,7 +178,8 @@ ReactDOM.render(
  * Goes through a preset line combinations to determine if the game is over
  * 
  * 
- * @param {Gameboard to parse} squares 
+ * @param {Array} squares - A gameboard array parser
+ * @return null
  */
 function calcWinner(squares) {
     const lines = [
