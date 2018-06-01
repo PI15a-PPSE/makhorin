@@ -1,80 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE glossary PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<glossary>
-  <glossdiv>
-    <title>Программный продукт Tic-Tac-Toe</title>
+<article version="5.1" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xila="http://www.w3.org/2001/XInclude/local-attributes"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:trans="http://docbook.org/ns/transclusion"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+    <title>Программный Продукт "Tic-Tac-Toe"</title>
 
-    <glossentry>
-      <glossterm>1. Описание продукта</glossterm>
+    <author>
+      <personname><firstname>Stepan</firstname><surname>Makhorin</surname></personname>
 
-      <glossdef>
-        <para>Программный продукт <emphasis role="bold">Tic-Tac-Toe</emphasis>
-        был разработан для развлечения. Игра содержит в себе поле 3*3 и
-        предназначена для двух игроков.</para>
-      </glossdef>
-    </glossentry>
+      <affiliation>
+        <orgname>Makhorin Industries LLC</orgname>
+      </affiliation>
+    </author>
 
-    <glossentry>
-      <glossterm>2. Первый запуск</glossterm>
+    <pubdate>01-06-2018</pubdate>
+  </info>
 
-      <glossdef>
-        <para>При первом запуске игры пользователю предоставлено поле и по
-        правилам игры первый игрок играет за крестики, у него доступно 9
-        клеток для первого хода и первый клик, как и последующие
-        обрабатывается следующей функиецй:</para>
+  <section>
+    <title>Описание продукта</title>
 
-        <programlisting>  handleClick(i){
+    <para>Программный продукт <emphasis role="bold">Tic-Tac-Toe </emphasis>был
+    разработан для развлечения. Игра содержит в себе поле 3*3 и предназначена
+    для двух игроков.</para>
+  </section>
+
+  <section>
+    <title>Первый запуск</title>
+
+    <para>При первом запуске игры пользователю предоставлено поле и по
+    правилам игры первый игрок играет за крестики, у него доступно 9 клеток
+    для первого хода и первый клик, как и последующие обрабатывается следующей
+    функцией:</para>
+
+    <programlisting>handleClick(i){
     const squares = this.state.squares.slice();
     if(calcWinner(squares) || squares[i]) {
-      return;
+        return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
         squares: squares,
         xIsNext: !this.state.xIsNext,
-      });
-  }
+    });
+}
 </programlisting>
 
-        <address>При нажатии кнопки "Go to Game Start" игра вернётся в первоначальное состояние с пустым полем, функция предоставлена ниже:</address>
+    <para>При нажатии кнопки "Restart" игра вернётся в первоначальное
+    состояние с пустым полем, функция предоставлена ниже:</para>
 
-        <programlisting>    reset() {
-      this.setState({
-          squares: this.state.beginningState,
-          xIsNext: true,
-      });
-    }</programlisting>
+    <programlisting>reset() {
+    this.setState({
+        squares: this.state.beginningState,
+        xIsNext: true,
+    });
+}</programlisting>
 
-        <literallayout>Каждый ход производится проверка по нахождению победителя и при удачном поиске выводится сообщение "Winner :", а игра не может быть продолжена.
-В противном случае сообщения о ничье не будет, при заполнении 9 клеток игра не сможет более продолжаться, код проверки победителя предоставлен ниже:</literallayout>
+    <para>Каждый ход производится проверка по нахождению победителя и при
+    удачном поиске выводится сообщение "Winner :", а игра не может быть
+    продолжена. В противном случае сообщения о ничье не будет, при заполнении
+    9 клеток игра не сможет более продолжаться, код проверки победителя
+    предоставлен ниже:</para>
 
-        <programlisting>  function calcWinner(squares) {
+    <programlisting>function calcWinner(squares) {
     const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 6],
-      [0, 4, 8],
-      [2, 4, 6],
-      [2, 5, 8],
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 6],
+        [0, 4, 8],
+        [2, 4, 6],
+        [2, 5, 8],
     ];
 
     for (let i = 0; i &lt; lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if(squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
-        return squares[a];
-      }
+        const [a, b, c] = lines[i];
+        if(squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+            return squares[a];
+        }
     }
 
     return null;
-  }</programlisting>
+}</programlisting>
 
-        <para>Таким образом, было рассмотрено 3 варианта развития событий, с
-        приведенным кодом.</para>
-      </glossdef>
-    </glossentry>
-  </glossdiv>
-</glossary>
+    <para>Таким образом, было рассмотрено 3 варианта развития событий, с
+    приведенным кодом.</para>
+  </section>
+</article>
